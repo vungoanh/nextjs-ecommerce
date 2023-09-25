@@ -9,7 +9,7 @@ import { MdOutlinePendingActions } from 'react-icons/md'
 import { GrCompliance } from 'react-icons/gr'
 import { setNavActive } from '@/utils/admin-nav-slice'
 import { useDispatch } from 'react-redux'
-import { AddCircle, ArchiveTick, Category2, Home, Verify } from 'iconsax-react'
+import { AddCircle, ArchiveTick, Category2, Home, Shop, Verify } from 'iconsax-react'
 
 
 export default function AdminSidebar() {
@@ -30,7 +30,7 @@ export default function AdminSidebar() {
             </button>
           </li>
           <li onClick={() => dispatch(setNavActive('activeProducts'))} className='py-3 px-1 mb-3'>
-            <button className='flex items-center justify-center'><GiLoincloth className='mx-2' /> Products</button>
+            <button className='flex items-center justify-center'><Shop size="16" className={'mx-2'}/> Products</button>
           </li>
           <li className='py-3 px-1 mb-3'>
             <Link href={'/product/add-product'} className='flex items-center justify-center'>

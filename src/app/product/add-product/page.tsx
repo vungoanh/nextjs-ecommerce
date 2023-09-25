@@ -13,6 +13,9 @@ import { RootState } from '@/store/store'
 import Cookies from 'js-cookie'
 import { useSWRConfig } from 'swr'
 import { add_new_product } from '@/services/admin/product'
+import Input from '@/components/ui/input'
+import { Form } from '@radix-ui/react-form'
+import { Checkbox } from '@/components/ui/checkbox'
 
 
 type Inputs = {
@@ -136,8 +139,8 @@ export default function AddProduct() {
 
   return (
     <div className='w-full  p-4 min-h-screen  bg-gray-50 flex flex-col '>
-      <div className='text-sm breadcrumbs  border-b-2 border-b-orange-600'>
-        <ul className='dark:text-black'>
+      <div className='text-sm breadcrumbs border-b-2 border-b-orange-600'>
+        <ul className=''>
           <li>
             <Link href={'/dashboard'}>
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'
@@ -179,7 +182,7 @@ export default function AddProduct() {
         ) : (
 
           <div className='w-full h-full flex items-start justify-center'>
-            <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-lg  py-2 flex-col '>
+            <Form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-lg  py-2 flex-col '>
               <div className='form-control w-full max-w-full'>
                 <label className='label'>
                   <span className='label-text'>Choose Category</span>
@@ -199,7 +202,7 @@ export default function AddProduct() {
                 <label className='label'>
                   <span className='label-text'>Product Name</span>
                 </label>
-                <input {...register('name', { required: true })} type='text' placeholder='Type here'
+                <Input {...register('name', { required: true })} type='text' placeholder='Type here'
                        className='input input-bordered w-full' />
                 {errors.name && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
               </div>
@@ -207,7 +210,7 @@ export default function AddProduct() {
                 <label className='label'>
                   <span className='label-text'>Product Slug</span>
                 </label>
-                <input  {...register('slug', { required: true })} type='text' placeholder='Type here'
+                <Input  {...register('slug', { required: true })} type='text' placeholder='Type here'
                         className='input input-bordered w-full' />
                 {errors.slug && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
 
@@ -216,7 +219,7 @@ export default function AddProduct() {
                 <label className='label'>
                   <span className='label-text'>Product Price</span>
                 </label>
-                <input  {...register('price', { required: true })} type='number' placeholder='Type here'
+                <Input  {...register('price', { required: true })} type='number' placeholder='Type here'
                         className='input input-bordered w-full' />
                 {errors.slug && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
 
@@ -225,7 +228,7 @@ export default function AddProduct() {
                 <label className='label'>
                   <span className='label-text'>Product Quantity</span>
                 </label>
-                <input  {...register('quantity', { required: true })} type='number' placeholder='Type here'
+                <Input  {...register('quantity', { required: true })} type='number' placeholder='Type here'
                         className='input input-bordered w-full' />
                 {errors.slug && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
 
@@ -242,15 +245,15 @@ export default function AddProduct() {
               <div className='form-control py-2'>
                 <label className='label cursor-pointer'>
                   <span className='label-text'>Featured Product</span>
-                  <input {...register('feature')} type='checkbox' className='checkbox dark:border-black' />
+                  <Checkbox {...register('feature')} className='checkbox ' />
                 </label>
               </div>
               <div className='form-control w-full '>
                 <label className='label'>
                   <span className='label-text'>Add product Image</span>
                 </label>
-                <input accept='image/*' max='1000000'  {...register('image', { required: true })} type='file'
-                       className='file-input file-input-bordered w-full ' />
+                <Input accept='image/*' max='1000000'  {...register('image', { required: true })} type='file' multiple
+                       className='file-input file-input-bordered w-full h-full ' />
                 {errors.image &&
                   <span className='text-red-500 text-xs mt-2'>This field is required and the image must be less than or equal to 1MB.</span>}
 
@@ -258,7 +261,7 @@ export default function AddProduct() {
 
               <button className='btn btn-block mt-3'>Done !</button>
 
-            </form>
+            </Form>
           </div>
 
         )

@@ -20,11 +20,12 @@ export default function TileContainer() {
       {
         data?.map((tile: tile, index: number) => {
           return (
-            <StatsTiles key={index}
-                        Icon={tile.icon}
-                        color={tile.color}
-                        title={tile.title}
-                        count={tile.count} />
+            <StatsTiles
+              key={index}
+              Icon={tile.icon}
+              color={tile.color}
+              title={tile.title}
+              count={tile.count} />
           )
         })
       }

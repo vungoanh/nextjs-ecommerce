@@ -10,6 +10,10 @@ import { TailSpin } from 'react-loader-spinner'
 import { useRouter } from 'next/navigation'
 import { add_new_category } from '@/services/admin/category'
 import Cookies from 'js-cookie'
+import Input from '@/components/ui/input'
+import { Form } from '@radix-ui/react-form'
+import { Textarea } from '@/components/ui/text-area'
+
 
 
 type Inputs = {
@@ -69,7 +73,7 @@ interface userData {
 export default function AddCategory() {
 
   const [loader, setLoader] = useState(false)
-  const Router = useRouter()
+  const router = useRouter()
 
 
   // useEffect(() => {
@@ -103,7 +107,7 @@ export default function AddCategory() {
     if (res.success) {
       toast.success(res?.message)
       setTimeout(() => {
-        Router.push('/dashboard')
+        router.push('/')
       }, 2000)
       setLoader(false)
     } else {
@@ -113,10 +117,11 @@ export default function AddCategory() {
   }
 
 
+  // @ts-ignore
   return (
     <div className='w-full  p-4 min-h-screen  bg-gray-50 flex flex-col '>
       <div className='text-sm breadcrumbs  border-b-2 border-b-orange-600'>
-        <ul className='dark:text-black'>
+        <ul className=''>
           <li>
             <Link href={'/dashboard'}>
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'
@@ -158,12 +163,12 @@ export default function AddCategory() {
         ) : (
 
           <div className='w-full h-full flex items-start justify-center'>
-            <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-lg  py-2 flex-col '>
+            <Form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-lg  py-2 flex-col '>
               <div className='form-control w-full mb-2'>
                 <label className='label'>
                   <span className='label-text'>Category Name</span>
                 </label>
-                <input {...register('name', { required: true })} type='text' placeholder='Type here'
+                <Input {...register('name', { required: true })} type='text' placeholder='Type here'
                        className='input input-bordered w-full' />
                 {errors.name && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
               </div>
@@ -171,7 +176,7 @@ export default function AddCategory() {
                 <label className='label'>
                   <span className='label-text'>Category Slug</span>
                 </label>
-                <input  {...register('slug', { required: true })} type='text' placeholder='Type here'
+                <Input  {...register('slug', { required: true })} type='text' placeholder='Type here'
                         className='input input-bordered w-full' />
                 {errors.slug && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
 
@@ -180,17 +185,16 @@ export default function AddCategory() {
                 <label className='label'>
                   <span className='label-text'>Category Description</span>
                 </label>
-                <textarea  {...register('description', { required: true })} className='textarea textarea-bordered h-24'
-                           placeholder='Description'></textarea>
+                <Textarea  {...register('description', { required: true })} className='h-24'
+                           placeholder='Description'></Textarea>
                 {errors.description && <span className='text-red-500 text-xs mt-2'>This field is required</span>}
-
               </div>
               <div className='form-control w-full '>
                 <label className='label'>
                   <span className='label-text'>Add Category Image</span>
                 </label>
-                <input accept='image/*' max='1000000'  {...register('image', { required: true })} type='file'
-                       className='file-input file-input-bordered w-full ' />
+                <Input accept='image/*' max='1000000'  {...register('image', { required: true })} type='file' multiple
+                       className='file-input file-input-bordered w-full h-full' />
                 {errors.image &&
                   <span className='text-red-500 text-xs mt-2'>This field is required and the image must be less than or equal to 1MB.</span>}
 
@@ -198,7 +202,7 @@ export default function AddCategory() {
 
               <button className='btn btn-block mt-3'>Done !</button>
 
-            </form>
+            </Form>
           </div>
 
         )
